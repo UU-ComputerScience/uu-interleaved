@@ -27,6 +27,7 @@ module Control.Applicative.Interleaved
 
 -- import Text.ParserCombinators.UU.Core
 import Control.Applicative
+import Data.Semigroup as Sem
 #if defined(__GLASGOW_HASKELL__) && __GLASGOW_HASKELL__ >= 710
 import Data.Monoid hiding (Alt)
 #else
@@ -54,10 +55,18 @@ class Splittable f where
   getPure       :: f a  -> Maybe     a
 
 -- * Grammars can be used as a monoid using the <||> combinator to combine them and (.) for composing  results
+-- Split up into Monoid + Semigroup for GHC 8.4, see
+-- <https://prime.haskell.org/wiki/Libraries/Proposals/SemigroupMonoid#Writingcompatiblecode>
+instance Functor f => Sem.Semigroup (Gram f (r -> r)) where
+  p <> q = (.) <$> p <||> q
 
 instance Functor f => Monoid (Gram f (r -> r)) where
-  mappend p q = (.) <$> p <||> q
   mempty      = empty
+#if !(MIN_VERSION_base(4,11,0))
+  -- this is redundant starting with base-4.11 / GHC 8.4
+  -- if you want to avoid CPP, you can define `mappend = (<>)` unconditionally
+  mappend = (<>)
+#endif
 
 instance (Show a) => Show (Gram f a) where
   show (Gram l ma) = "Gram " ++ show  (length l) ++ " " ++ show ma 
