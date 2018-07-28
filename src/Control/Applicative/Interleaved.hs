@@ -65,7 +65,7 @@ instance Functor f => Monoid (Gram f (r -> r)) where
 #if !(MIN_VERSION_base(4,11,0))
   -- this is redundant starting with base-4.11 / GHC 8.4
   -- if you want to avoid CPP, you can define `mappend = (<>)` unconditionally
-  mappend = (<>)
+  mappend = (Sem.<>)
 #endif
 
 instance (Show a) => Show (Gram f a) where
