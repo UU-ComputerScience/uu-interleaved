@@ -10,7 +10,7 @@ Maintainer:          Doaitse Swierstra
 Stability:           stable, but evolving
 Homepage:            https://github.com/UU-ComputerScience/uu-interleaved
 Bug-reports:         mailto:doaitse@swierstra.net      
-Synopsis:            Providing an interleaving combinator for use with applicative style implementations.
+Synopsis:            An interleaving combinator for use with applicative style implementations.
 Description:         This module contains parser library independent code which can be used to describe
                      interleaved execution of applicative style structures. 
                      It is amongst other used in the uu-options package, which provides facilities for
