@@ -1,6 +1,5 @@
 Name:                uu-interleaved
-Version:             0.2.0.1
-x-revision: 1
+Version:             0.2.0.2
 Build-Type:          Simple
 License:             MIT
 Copyright:           S Doaitse Swierstra 
